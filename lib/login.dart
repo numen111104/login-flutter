@@ -45,6 +45,14 @@ class LoginWidget extends StatefulWidget {
 class _PasswordState extends State<LoginWidget> {
   String? _email;
   String? _password;
+  bool _isHidden = true;
+
+  void _toggleVisablity() {
+    setState(() {
+      _isHidden = !_isHidden;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -53,8 +61,8 @@ class _PasswordState extends State<LoginWidget> {
           children: [
             Image.asset(
               'images/login.png',
-              width: 225,
-              height: 225,
+              width: 200,
+              height: 200,
             ),
             Container(
               padding: const EdgeInsets.all(15),
@@ -73,7 +81,7 @@ class _PasswordState extends State<LoginWidget> {
                 children: [
                   Center(
                     child: Text(
-                      "Login ke Akun Anda",
+                      "Masuk ke Akun Anda",
                       style: GoogleFonts.itim(
                           color: const Color(0xffFFA3BE),
                           fontWeight: FontWeight.bold,
@@ -117,11 +125,19 @@ class _PasswordState extends State<LoginWidget> {
                   Container(
                     margin: const EdgeInsets.symmetric(vertical: 15),
                     child: TextField(
-                      obscureText: true,
+                      obscureText: _isHidden,
                       decoration: InputDecoration(
                         prefixIcon: const Icon(
                           Icons.key,
                           color: Color(0xFF474BCA),
+                        ),
+                        suffixIcon: IconButton(
+                          onPressed: _toggleVisablity,
+                          icon: Icon(
+                            _isHidden ? Icons.visibility : Icons.visibility_off,
+                            size: 20.0,
+                            color: const Color(0xFF474BCA),
+                          ),
                         ),
                         floatingLabelBehavior: FloatingLabelBehavior.auto,
                         border: const OutlineInputBorder(),
@@ -146,51 +162,50 @@ class _PasswordState extends State<LoginWidget> {
                     ),
                   ),
                   ElevatedButton(
+                    style: const ButtonStyle(
+                      backgroundColor:  MaterialStatePropertyAll(Color(0xFF474BCA)),
+                    ),
                       onPressed: () {
                         showDialog(
                             context: context,
                             builder: (context) {
                               return AlertDialog(
                                 content: Text(
-                                    "Terima kasih $_email keren $_password", style: TextStyle(
-                                  fontSize: 17,
-                                  fontFamily: GoogleFonts.inter().fontFamily
-                                ),),
+                                  "Terima kasih $_email keren $_password",
+                                ),
                               );
                             });
                       },
-                      child: const Text("Login"))
+                      child: const Text("Masuk", style: TextStyle(color: Color(0xffF9E6E6)),))
                 ],
               ),
             ),
-            const SizedBox(
+            SizedBox(
               height: 50,
               child: Row(
                 children: [
-                  Expanded(
+                  const Expanded(
                     child: Divider(
                       color: Color(0xFF474BCA),
                       thickness: 1.0,
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: Text(
                       'Login dengan akun lain',
-
                       style: TextStyle(
-                        color: Color(0xFF474BCA),
-                          fontSize: 16.0,
-                        shadows: [
-                          Shadow(
-                            color: Color(0xffFFA3BE),
-                            offset: Offset(0.5, 1)
-                          )
-                        ]
-                      ),
+                          color: const Color(0xffFFA3BE),
+                          fontSize: 17.0,
+                          fontFamily: GoogleFonts.itim().fontFamily,
+                          shadows: const [
+                            Shadow(
+                                color: Color(0xFF474BCA),
+                                offset: Offset(0.5, 1))
+                          ]),
                     ),
                   ),
-                  Expanded(
+                  const Expanded(
                     child: Divider(
                       color: Color(0xFF474BCA),
                       thickness: 1.0,
@@ -211,7 +226,7 @@ class _PasswordState extends State<LoginWidget> {
                           onPressed: () {},
                           style: const ButtonStyle(
                               backgroundColor:
-                                  MaterialStatePropertyAll(Color(0xffFFA3BE))),
+                                  MaterialStatePropertyAll(Color(0xFF474BCA))),
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 0, vertical: 4),
@@ -248,7 +263,7 @@ class _PasswordState extends State<LoginWidget> {
                           onPressed: () {},
                           style: const ButtonStyle(
                               backgroundColor:
-                                  MaterialStatePropertyAll(Color(0xffFFA3BE))),
+                                  MaterialStatePropertyAll(Color(0xFF474BCA))),
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 0, vertical: 4),
@@ -256,7 +271,7 @@ class _PasswordState extends State<LoginWidget> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Container(
-                                  margin: const EdgeInsets.only(right: 3.5),
+                                  margin: const EdgeInsets.only(right: 5),
                                   child: Image.network(
                                     'https://th.bing.com/th?id=ODLS.dff3174d-c8cf-4132-8c42-90ebaa81f245&w=32&h=32&qlt=90&pcl=fffffa&o=6&pid=1.2',
                                     width: 20,
@@ -279,6 +294,19 @@ class _PasswordState extends State<LoginWidget> {
               ],
             )
           ],
+        ),
+        SizedBox(
+          height: 90,
+          child: Center(
+            child: Text("- Dibuat dengan ❤ oleh Nu'man Nasyar MZ -",
+              style: TextStyle(
+                color: Colors.grey,
+                fontFamily: GoogleFonts.poppins().fontFamily,
+                fontSize: 10,
+                fontWeight: FontWeight.w100,
+                letterSpacing: 1.0
+            ),),
+          ),
         )
       ],
     );

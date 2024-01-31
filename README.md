@@ -8,7 +8,6 @@ Tugas dari kak febri memang menyenangkan
 
 ### Slicing Figma
 
-Login.
-
+Referensi design:
 ```markdown
-![Badge](https://img.shields.io/badge/Status-Awesome-brightgreen)
+https://www.figma.com/file/ZEyThmXsTpCIfmjdZxfpXW/Login-page-%7C-Login-page-for-website-(Community)?node-id=1%3A5&mode=dev

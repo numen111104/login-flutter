@@ -2,15 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  const LoginPage({super.key});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
-  GlobalKey<_PasswordState> railNavi = GlobalKey();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,9 +24,7 @@ class _LoginPageState extends State<LoginPage> {
         ),
         leading:  IconButton(
           icon: const Icon(Icons.menu, color: Color(0xffF9E6E6)),
-          onPressed: () {
-            railNavi.currentState?._toggleRailNav();
-          } ,
+          onPressed: () { } ,
         ),
         actions: [
           Container(
@@ -40,9 +36,8 @@ class _LoginPageState extends State<LoginPage> {
           )
         ],
       ),
-      body: SafeArea(
+      body: const SafeArea(
         child: LoginWidget(
-          key: railNavi,
         ),
       ),
     );
@@ -50,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
 }
 
 class LoginWidget extends StatefulWidget {
-  const LoginWidget({Key? key}) : super(key: key);
+  const LoginWidget({super.key});
 
   @override
   State<LoginWidget> createState() => _PasswordState();
@@ -62,13 +57,6 @@ class _PasswordState extends State<LoginWidget> {
   bool _isHidden = true;
   bool _lightOn = true;
   bool isRailed = false;
-  int _selectedIndex = 0;
-
-  void _toggleRailNav() {
-    setState(() {
-      isRailed = !isRailed;
-    });
-  }
 
   void _toggleVisablity() {
     setState(() {
@@ -80,38 +68,6 @@ class _PasswordState extends State<LoginWidget> {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        isRailed ? NavigationRail(
-          selectedIndex: _selectedIndex,
-          onDestinationSelected: (int index) {
-            setState(() {
-              _selectedIndex = index;
-            });
-          },
-          labelType: NavigationRailLabelType.selected,
-          backgroundColor: Colors.green,
-          destinations: const <NavigationRailDestination>
-          [
-            // navigation destinations
-            NavigationRailDestination(
-              icon: Icon(Icons.favorite_border),
-              selectedIcon: Icon(Icons.favorite),
-              label: Text('Wishlist'),
-            ),
-            NavigationRailDestination(
-              icon: Icon(Icons.person_outline_rounded),
-              selectedIcon: Icon(Icons.person),
-              label: Text('Account'),
-            ),
-            NavigationRailDestination(
-              icon: Icon(Icons.shopping_cart_outlined),
-              selectedIcon: Icon(Icons.shopping_cart),
-              label: Text('Cart'),
-            ),
-          ],
-          selectedIconTheme: IconThemeData(color: Colors.white),
-          unselectedIconTheme: IconThemeData(color: Colors.black),
-          selectedLabelTextStyle: TextStyle(color: Colors.white),
-        ) :
         Column(
           children: [
             Image.network(

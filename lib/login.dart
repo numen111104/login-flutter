@@ -59,8 +59,8 @@ class _PasswordState extends State<LoginWidget> {
       children: [
         Column(
           children: [
-            Image.asset(
-              'images/login.png',
+            Image.network(
+              'https://raw.githubusercontent.com/numen111104/login-flutter/master/images/login.png',
               width: 200,
               height: 200,
             ),

@@ -304,7 +304,7 @@ class _PasswordState extends State<LoginWidget> {
           ],
         ),
         SizedBox(
-          height: 75,
+          height: 50,
           child: Center(
             child: Text(
               "- Dibuat dengan ❤ oleh Nu'man Nasyar MZ -",
@@ -319,13 +319,8 @@ class _PasswordState extends State<LoginWidget> {
         ),
         Image.network(
           'https://storage.googleapis.com/cms-storage-bucket/c823e53b3a1a7b0d36a9.png',
-          height: 35,
-          width: 35,
-        ),
-        Image.network(
-          'https://dart.dev/assets/img/shared/dart/logo+text/horizontal/white.png',
-          height: 75,
-          width: 75,
+          height: 20,
+          width: 20,
         )
       ],
     );

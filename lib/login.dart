@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  GlobalKey<_PasswordState> railNavi = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +24,11 @@ class LoginPage extends StatelessWidget {
           style:
               GoogleFonts.itim(color: const Color(0xffF9E6E6), fontSize: 27.0),
         ),
-        leading: const Icon(
-          Icons.book_online_outlined,
-          color: Color(0xffF9E6E6),
+        leading:  IconButton(
+          icon: const Icon(Icons.menu, color: Color(0xffF9E6E6)),
+          onPressed: () {
+            railNavi.currentState?._toggleRailNav();
+          } ,
         ),
         actions: [
           Container(
@@ -31,15 +40,17 @@ class LoginPage extends StatelessWidget {
           )
         ],
       ),
-      body: const SafeArea(
-        child: LoginWidget(),
+      body: SafeArea(
+        child: LoginWidget(
+          key: railNavi,
+        ),
       ),
     );
   }
 }
 
 class LoginWidget extends StatefulWidget {
-  const LoginWidget({super.key});
+  const LoginWidget({Key? key}) : super(key: key);
 
   @override
   State<LoginWidget> createState() => _PasswordState();
@@ -49,6 +60,15 @@ class _PasswordState extends State<LoginWidget> {
   String? _email;
   String? _password;
   bool _isHidden = true;
+  bool _lightOn = true;
+  bool isRailed = false;
+  int _selectedIndex = 0;
+
+  void _toggleRailNav() {
+    setState(() {
+      isRailed = !isRailed;
+    });
+  }
 
   void _toggleVisablity() {
     setState(() {
@@ -60,6 +80,38 @@ class _PasswordState extends State<LoginWidget> {
   Widget build(BuildContext context) {
     return ListView(
       children: [
+        isRailed ? NavigationRail(
+          selectedIndex: _selectedIndex,
+          onDestinationSelected: (int index) {
+            setState(() {
+              _selectedIndex = index;
+            });
+          },
+          labelType: NavigationRailLabelType.selected,
+          backgroundColor: Colors.green,
+          destinations: const <NavigationRailDestination>
+          [
+            // navigation destinations
+            NavigationRailDestination(
+              icon: Icon(Icons.favorite_border),
+              selectedIcon: Icon(Icons.favorite),
+              label: Text('Wishlist'),
+            ),
+            NavigationRailDestination(
+              icon: Icon(Icons.person_outline_rounded),
+              selectedIcon: Icon(Icons.person),
+              label: Text('Account'),
+            ),
+            NavigationRailDestination(
+              icon: Icon(Icons.shopping_cart_outlined),
+              selectedIcon: Icon(Icons.shopping_cart),
+              label: Text('Cart'),
+            ),
+          ],
+          selectedIconTheme: IconThemeData(color: Colors.white),
+          unselectedIconTheme: IconThemeData(color: Colors.black),
+          selectedLabelTextStyle: TextStyle(color: Colors.white),
+        ) :
         Column(
           children: [
             Image.network(
@@ -127,7 +179,7 @@ class _PasswordState extends State<LoginWidget> {
                     ),
                   ),
                   Container(
-                    margin: const EdgeInsets.symmetric(vertical: 15),
+                    margin: const EdgeInsets.only(top: 15, bottom: 5),
                     child: TextField(
                       obscureText: _isHidden,
                       decoration: InputDecoration(
@@ -165,6 +217,32 @@ class _PasswordState extends State<LoginWidget> {
                       },
                     ),
                   ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                       Container(
+                         margin: const EdgeInsets.only(right: 5),
+                           child: Text("Ingat Saya",
+                             style: TextStyle(color: const Color(0xFF474BCA),
+                                 fontFamily: GoogleFonts.itim().fontFamily,
+                                 fontSize: 15),
+                           )
+                       ),
+                      Switch(
+                          value: _lightOn,
+                          activeColor: const Color(0xffF9E6E6),
+                          activeTrackColor: const Color(0xFF474BCA),
+                          inactiveThumbColor: const Color(0xFF474BCA),
+                          inactiveTrackColor: const Color(0xffF9E6E6),
+                          trackOutlineColor:  const MaterialStatePropertyAll(Color(0xFF474BCA)),
+                          trackOutlineWidth: const MaterialStatePropertyAll(0.5),
+                          onChanged: (bool value) {
+                            setState(() {
+                              _lightOn = !_lightOn;
+                            });
+                          })
+                    ],
+                  ),
                   ElevatedButton(
                       style: const ButtonStyle(
                         backgroundColor:
@@ -184,7 +262,21 @@ class _PasswordState extends State<LoginWidget> {
                       child: const Text(
                         "Masuk",
                         style: TextStyle(color: Color(0xffF9E6E6)),
-                      ))
+                      )
+                  ),
+                   Container(
+                     margin: const EdgeInsets.only(top: 5),
+                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("Belum punya akun? buat akun baru",
+                          style: TextStyle(color: const Color(0xFF474BCA),
+                              fontFamily: GoogleFonts.itim().fontFamily,
+                              fontSize: 12.5),),
+                        // TextButton(onPressed: () {}, child: )
+                      ],
+                                       ),
+                   )
                 ],
               ),
             ),
@@ -209,7 +301,7 @@ class _PasswordState extends State<LoginWidget> {
                           shadows: const [
                             Shadow(
                                 color: Color(0xffFFA3BE),
-                                offset: Offset(0.1, 0.09))
+                                offset: Offset(0.01, 0.09))
                           ]),
                     ),
                   ),

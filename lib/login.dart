@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,19 +22,23 @@ class LoginPage extends StatelessWidget {
           style:
               GoogleFonts.itim(color: const Color(0xffF9E6E6), fontSize: 27.0),
         ),
-        leading: const Icon(
-          Icons.book_online_outlined,
-          color: Color(0xffF9E6E6),
+        leading:  IconButton(
+          icon: const Icon(Icons.menu, color: Color(0xffF9E6E6)),
+          onPressed: () { } ,
         ),
-        actions: const [
-          Icon(
-            Icons.data_saver_on_outlined,
-            color: Color(0xffF9E6E6),
+        actions: [
+          Container(
+            margin: const EdgeInsets.only(right: 15.0),
+            child: const Icon(
+              Icons.accessibility,
+              color: Color(0xffF9E6E6),
+            ),
           )
         ],
       ),
       body: const SafeArea(
-        child: LoginWidget(),
+        child: LoginWidget(
+        ),
       ),
     );
   }
@@ -46,6 +55,8 @@ class _PasswordState extends State<LoginWidget> {
   String? _email;
   String? _password;
   bool _isHidden = true;
+  bool _lightOn = true;
+  bool isRailed = false;
 
   void _toggleVisablity() {
     setState(() {
@@ -59,8 +70,8 @@ class _PasswordState extends State<LoginWidget> {
       children: [
         Column(
           children: [
-            Image.asset(
-              'images/login.png',
+            Image.network(
+              'https://raw.githubusercontent.com/numen111104/login-flutter/master/images/login.png',
               width: 200,
               height: 200,
             ),
@@ -83,12 +94,13 @@ class _PasswordState extends State<LoginWidget> {
                     child: Text(
                       "Masuk ke Akun Anda",
                       style: GoogleFonts.itim(
-                          color: const Color(0xffFFA3BE),
+                          color: const Color(0xFF474BCA),
                           fontWeight: FontWeight.bold,
                           fontSize: 25,
                           shadows: [
                             const Shadow(
-                                color: Color(0xFF474BCA), offset: Offset(1, 2)),
+                                color: Color(0xffFFA3BE),
+                                offset: Offset(0.1, 0.1)),
                           ]),
                     ),
                   ),
@@ -123,7 +135,7 @@ class _PasswordState extends State<LoginWidget> {
                     ),
                   ),
                   Container(
-                    margin: const EdgeInsets.symmetric(vertical: 15),
+                    margin: const EdgeInsets.only(top: 15, bottom: 5),
                     child: TextField(
                       obscureText: _isHidden,
                       decoration: InputDecoration(
@@ -161,10 +173,37 @@ class _PasswordState extends State<LoginWidget> {
                       },
                     ),
                   ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                       Container(
+                         margin: const EdgeInsets.only(right: 5),
+                           child: Text("Ingat Saya",
+                             style: TextStyle(color: const Color(0xFF474BCA),
+                                 fontFamily: GoogleFonts.itim().fontFamily,
+                                 fontSize: 15),
+                           )
+                       ),
+                      Switch(
+                          value: _lightOn,
+                          activeColor: const Color(0xffF9E6E6),
+                          activeTrackColor: const Color(0xFF474BCA),
+                          inactiveThumbColor: const Color(0xFF474BCA),
+                          inactiveTrackColor: const Color(0xffF9E6E6),
+                          trackOutlineColor:  const MaterialStatePropertyAll(Color(0xFF474BCA)),
+                          trackOutlineWidth: const MaterialStatePropertyAll(0.5),
+                          onChanged: (bool value) {
+                            setState(() {
+                              _lightOn = !_lightOn;
+                            });
+                          })
+                    ],
+                  ),
                   ElevatedButton(
-                    style: const ButtonStyle(
-                      backgroundColor:  MaterialStatePropertyAll(Color(0xFF474BCA)),
-                    ),
+                      style: const ButtonStyle(
+                        backgroundColor:
+                            MaterialStatePropertyAll(Color(0xFF474BCA)),
+                      ),
                       onPressed: () {
                         showDialog(
                             context: context,
@@ -176,7 +215,24 @@ class _PasswordState extends State<LoginWidget> {
                               );
                             });
                       },
-                      child: const Text("Masuk", style: TextStyle(color: Color(0xffF9E6E6)),))
+                      child: const Text(
+                        "Masuk",
+                        style: TextStyle(color: Color(0xffF9E6E6)),
+                      )
+                  ),
+                   Container(
+                     margin: const EdgeInsets.only(top: 5),
+                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("Belum punya akun? buat akun baru",
+                          style: TextStyle(color: const Color(0xFF474BCA),
+                              fontFamily: GoogleFonts.itim().fontFamily,
+                              fontSize: 12.5),),
+                        // TextButton(onPressed: () {}, child: )
+                      ],
+                                       ),
+                   )
                 ],
               ),
             ),
@@ -195,13 +251,13 @@ class _PasswordState extends State<LoginWidget> {
                     child: Text(
                       'Login dengan akun lain',
                       style: TextStyle(
-                          color: const Color(0xffFFA3BE),
+                          color: const Color(0xFF474BCA),
                           fontSize: 17.0,
                           fontFamily: GoogleFonts.itim().fontFamily,
                           shadows: const [
                             Shadow(
-                                color: Color(0xFF474BCA),
-                                offset: Offset(0.5, 1))
+                                color: Color(0xffFFA3BE),
+                                offset: Offset(0.01, 0.09))
                           ]),
                     ),
                   ),
@@ -296,17 +352,23 @@ class _PasswordState extends State<LoginWidget> {
           ],
         ),
         SizedBox(
-          height: 90,
+          height: 50,
           child: Center(
-            child: Text("- Dibuat dengan ❤ oleh Nu'man Nasyar MZ -",
+            child: Text(
+              "- Dibuat dengan ❤ oleh Nu'man Nasyar MZ -",
               style: TextStyle(
-                color: Colors.grey,
-                fontFamily: GoogleFonts.poppins().fontFamily,
-                fontSize: 10,
-                fontWeight: FontWeight.w100,
-                letterSpacing: 1.0
-            ),),
+                  color: Colors.grey,
+                  fontFamily: GoogleFonts.poppins().fontFamily,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w100,
+                  letterSpacing: 1.0),
+            ),
           ),
+        ),
+        Image.network(
+          'https://storage.googleapis.com/cms-storage-bucket/c823e53b3a1a7b0d36a9.png',
+          height: 20,
+          width: 20,
         )
       ],
     );

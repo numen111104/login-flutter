@@ -21,10 +21,13 @@ class LoginPage extends StatelessWidget {
           Icons.book_online_outlined,
           color: Color(0xffF9E6E6),
         ),
-        actions: const [
-          Icon(
-            Icons.data_saver_on_outlined,
-            color: Color(0xffF9E6E6),
+        actions: [
+          Container(
+            margin: const EdgeInsets.only(right: 15.0),
+            child: const Icon(
+              Icons.accessibility,
+              color: Color(0xffF9E6E6),
+            ),
           )
         ],
       ),
@@ -83,12 +86,13 @@ class _PasswordState extends State<LoginWidget> {
                     child: Text(
                       "Masuk ke Akun Anda",
                       style: GoogleFonts.itim(
-                          color: const Color(0xffFFA3BE),
+                          color: const Color(0xFF474BCA),
                           fontWeight: FontWeight.bold,
                           fontSize: 25,
                           shadows: [
                             const Shadow(
-                                color: Color(0xFF474BCA), offset: Offset(1, 2)),
+                                color: Color(0xffFFA3BE),
+                                offset: Offset(0.1, 0.1)),
                           ]),
                     ),
                   ),
@@ -162,9 +166,10 @@ class _PasswordState extends State<LoginWidget> {
                     ),
                   ),
                   ElevatedButton(
-                    style: const ButtonStyle(
-                      backgroundColor:  MaterialStatePropertyAll(Color(0xFF474BCA)),
-                    ),
+                      style: const ButtonStyle(
+                        backgroundColor:
+                            MaterialStatePropertyAll(Color(0xFF474BCA)),
+                      ),
                       onPressed: () {
                         showDialog(
                             context: context,
@@ -176,7 +181,10 @@ class _PasswordState extends State<LoginWidget> {
                               );
                             });
                       },
-                      child: const Text("Masuk", style: TextStyle(color: Color(0xffF9E6E6)),))
+                      child: const Text(
+                        "Masuk",
+                        style: TextStyle(color: Color(0xffF9E6E6)),
+                      ))
                 ],
               ),
             ),
@@ -195,13 +203,13 @@ class _PasswordState extends State<LoginWidget> {
                     child: Text(
                       'Login dengan akun lain',
                       style: TextStyle(
-                          color: const Color(0xffFFA3BE),
+                          color: const Color(0xFF474BCA),
                           fontSize: 17.0,
                           fontFamily: GoogleFonts.itim().fontFamily,
                           shadows: const [
                             Shadow(
-                                color: Color(0xFF474BCA),
-                                offset: Offset(0.5, 1))
+                                color: Color(0xffFFA3BE),
+                                offset: Offset(0.1, 0.09))
                           ]),
                     ),
                   ),
@@ -296,17 +304,28 @@ class _PasswordState extends State<LoginWidget> {
           ],
         ),
         SizedBox(
-          height: 90,
+          height: 75,
           child: Center(
-            child: Text("- Dibuat dengan ❤ oleh Nu'man Nasyar MZ -",
+            child: Text(
+              "- Dibuat dengan ❤ oleh Nu'man Nasyar MZ -",
               style: TextStyle(
-                color: Colors.grey,
-                fontFamily: GoogleFonts.poppins().fontFamily,
-                fontSize: 10,
-                fontWeight: FontWeight.w100,
-                letterSpacing: 1.0
-            ),),
+                  color: Colors.grey,
+                  fontFamily: GoogleFonts.poppins().fontFamily,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w100,
+                  letterSpacing: 1.0),
+            ),
           ),
+        ),
+        Image.network(
+          'https://storage.googleapis.com/cms-storage-bucket/c823e53b3a1a7b0d36a9.png',
+          height: 35,
+          width: 35,
+        ),
+        Image.network(
+          'https://dart.dev/assets/img/shared/dart/logo+text/horizontal/white.png',
+          height: 75,
+          width: 75,
         )
       ],
     );

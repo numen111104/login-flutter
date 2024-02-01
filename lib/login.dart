@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginPage extends StatefulWidget {
@@ -22,9 +23,9 @@ class _LoginPageState extends State<LoginPage> {
           style:
               GoogleFonts.itim(color: const Color(0xffF9E6E6), fontSize: 27.0),
         ),
-        leading:  IconButton(
+        leading: IconButton(
           icon: const Icon(Icons.menu, color: Color(0xffF9E6E6)),
-          onPressed: () { } ,
+          onPressed: () {},
         ),
         actions: [
           Container(
@@ -37,8 +38,7 @@ class _LoginPageState extends State<LoginPage> {
         ],
       ),
       body: const SafeArea(
-        child: LoginWidget(
-        ),
+        child: LoginWidget(),
       ),
     );
   }
@@ -56,12 +56,19 @@ class _PasswordState extends State<LoginWidget> {
   String? _password;
   bool _isHidden = true;
   bool _lightOn = true;
-  bool isRailed = false;
 
   void _toggleVisablity() {
     setState(() {
       _isHidden = !_isHidden;
     });
+  }
+
+  Text _rememberingUser() {
+    return _lightOn
+        ? Text(
+            "Thanks $_email, password anda adalah $_password, Anda akan diingat")
+        : Text(
+            "Thanks $_email, password anda adalah $_password Anda akan dilupakan");
   }
 
   @override
@@ -107,6 +114,7 @@ class _PasswordState extends State<LoginWidget> {
                   Container(
                     margin: const EdgeInsets.symmetric(vertical: 15),
                     child: TextField(
+                      autofocus: true,
                       decoration: InputDecoration(
                         prefixIcon: const Icon(
                           Icons.email,
@@ -176,22 +184,25 @@ class _PasswordState extends State<LoginWidget> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                       Container(
-                         margin: const EdgeInsets.only(right: 5),
-                           child: Text("Ingat Saya",
-                             style: TextStyle(color: const Color(0xFF474BCA),
-                                 fontFamily: GoogleFonts.itim().fontFamily,
-                                 fontSize: 15),
-                           )
-                       ),
+                      Container(
+                          margin: const EdgeInsets.only(right: 5),
+                          child: Text(
+                            "Ingat Saya",
+                            style: TextStyle(
+                                color: const Color(0xFF474BCA),
+                                fontFamily: GoogleFonts.itim().fontFamily,
+                                fontSize: 15),
+                          )),
                       Switch(
                           value: _lightOn,
                           activeColor: const Color(0xffF9E6E6),
                           activeTrackColor: const Color(0xFF474BCA),
                           inactiveThumbColor: const Color(0xFF474BCA),
                           inactiveTrackColor: const Color(0xffF9E6E6),
-                          trackOutlineColor:  const MaterialStatePropertyAll(Color(0xFF474BCA)),
-                          trackOutlineWidth: const MaterialStatePropertyAll(0.5),
+                          trackOutlineColor:
+                              const MaterialStatePropertyAll(Color(0xFF474BCA)),
+                          trackOutlineWidth:
+                              const MaterialStatePropertyAll(0.5),
                           onChanged: (bool value) {
                             setState(() {
                               _lightOn = !_lightOn;
@@ -209,30 +220,30 @@ class _PasswordState extends State<LoginWidget> {
                             context: context,
                             builder: (context) {
                               return AlertDialog(
-                                content: Text(
-                                  "Terima kasih $_email keren $_password",
-                                ),
+                                content: _rememberingUser(),
                               );
                             });
                       },
                       child: const Text(
                         "Masuk",
                         style: TextStyle(color: Color(0xffF9E6E6)),
-                      )
-                  ),
-                   Container(
-                     margin: const EdgeInsets.only(top: 5),
-                     child: Row(
+                      )),
+                  Container(
+                    margin: const EdgeInsets.only(top: 5),
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("Belum punya akun? buat akun baru",
-                          style: TextStyle(color: const Color(0xFF474BCA),
+                        Text(
+                          "Belum punya akun? buat akun baru",
+                          style: TextStyle(
+                              color: const Color(0xFF474BCA),
                               fontFamily: GoogleFonts.itim().fontFamily,
-                              fontSize: 12.5),),
+                              fontSize: 12.5),
+                        ),
                         // TextButton(onPressed: () {}, child: )
                       ],
-                                       ),
-                   )
+                    ),
+                  )
                 ],
               ),
             ),

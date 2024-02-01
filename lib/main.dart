@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 //import 'wisata_tidore.dart';
 //import 'button.dart';
 import 'login.dart';
+import 'listView.dart';
 
 void main() => runApp(const
 MyApp());
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Demo Flutter',
       theme: ThemeData(),
-      home: const LoginPage(),
+      home: ListViewScreen(),
       );
   }
 }

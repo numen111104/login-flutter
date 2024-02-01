@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'register.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -16,7 +16,7 @@ class _LoginPageState extends State<LoginPage> {
       backgroundColor: const Color(0xffF9E6E6),
       appBar: AppBar(
         backgroundColor: const Color(0xFF474BCA),
-        centerTitle: true,
+        centerTitle: false,
         title: Text(
           "Educare Book",
           textAlign: TextAlign.center,
@@ -29,11 +29,26 @@ class _LoginPageState extends State<LoginPage> {
         ),
         actions: [
           Container(
-            margin: const EdgeInsets.only(right: 15.0),
-            child: const Icon(
-              Icons.accessibility,
-              color: Color(0xffF9E6E6),
-            ),
+              margin: const EdgeInsets.only(right: 5.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context){
+                    return const RegisterPage();
+                  }));
+                },
+                style: const ButtonStyle(
+                    backgroundColor:
+                        MaterialStatePropertyAll(Color(0xffF9E6E6))),
+                child: Text(
+                  "Sign Up",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontFamily: GoogleFonts.itim().fontFamily,
+                    fontSize: 17.0,
+                    color: const Color(0xFF474BCA),
+                  ),
+                ),
+              )
           )
         ],
       ),
@@ -114,7 +129,6 @@ class _PasswordState extends State<LoginWidget> {
                   Container(
                     margin: const EdgeInsets.symmetric(vertical: 15),
                     child: TextField(
-                      autofocus: true,
                       decoration: InputDecoration(
                         prefixIcon: const Icon(
                           Icons.email,
@@ -308,11 +322,12 @@ class _PasswordState extends State<LoginWidget> {
                                     height: 20,
                                   ),
                                 ),
-                                const Text(
+                                Text(
                                   "Google",
                                   style: TextStyle(
+                                    fontFamily: GoogleFonts.inter().fontFamily,
                                     fontSize: 15.0,
-                                    color: Color(0xffF9E6E6),
+                                    color: const Color(0xffF9E6E6),
                                   ),
                                 )
                               ],
@@ -345,11 +360,12 @@ class _PasswordState extends State<LoginWidget> {
                                     height: 20,
                                   ),
                                 ),
-                                const Text(
+                                Text(
                                   "Microsoft",
                                   style: TextStyle(
+                                    fontFamily: GoogleFonts.inter().fontFamily,
                                     fontSize: 15.0,
-                                    color: Color(0xffF9E6E6),
+                                    color: const Color(0xffF9E6E6),
                                   ),
                                 )
                               ],

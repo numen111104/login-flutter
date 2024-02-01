@@ -1,3 +1,4 @@
+// import 'package:dicoding/expanded_flexible.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 // import 'BiggerText.dart';
@@ -5,8 +6,8 @@ import 'package:google_fonts/google_fonts.dart';
 // import 'resep.dart';
 //import 'wisata_tidore.dart';
 //import 'button.dart';
-import 'login.dart';
-import 'listView.dart';
+// import 'listView.dart';
+import 'responsive.dart';
 
 void main() => runApp(const
 MyApp());
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Demo Flutter',
       theme: ThemeData(),
-      home: ListViewScreen(),
+      home: const HomePage(),
       );
   }
 }
